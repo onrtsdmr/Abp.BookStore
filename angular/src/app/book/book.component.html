@@ -1,0 +1,132 @@
+<div class="card">
+
+  <!-- Card Header -->
+  <div class="card-header">
+    <div class="row">
+      <div class="col col-md-6">
+        <h5 class="card-title">
+          {{'::Menu:Books' | abpLocalization}}
+        </h5>
+      </div>
+      <div class="text-right col col-md-6">
+        <div class="text-lg-right pt-2">
+          <button abpPermission="BookStore.Books.Create" (click)="createBook()" class="btn btn-primary" id="create" type="button">
+            <span>{{ "::NewBook" | abpLocalization }}</span>
+            <i class="fa fa-plus ml-1"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Card Body -->
+  <div class="card-body">
+    <ngx-datatable [count]="book.totalCount" [list]="list" [rows]="book.items" default>
+      <ngx-datatable-column [name]="'::Authors' | abpLocalization" prop="author">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{row.authorName}}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column [name]="'::Name' | abpLocalization" prop="name"></ngx-datatable-column>
+      <ngx-datatable-column [name]="'::Type' | abpLocalization" prop="type">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ '::Enum:BookType:' + row.type | abpLocalization }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column [name]="'::PublishDate' | abpLocalization" prop="publishDate">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row.publishDate | date }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column [name]="'::Price' | abpLocalization" prop="price">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row.price | currency }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column
+        [maxWidth]="150"
+        [name]="'::Actions' | abpLocalization"
+        [sortable]="false">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          <div class="d-inline-block" container="body" ngbDropdown>
+            <button
+              aria-haspopup="true"
+              class="btn btn-secondary btn-sm dropdown-toggle"
+              data-toggle="dropdown"
+              ngbDropdownToggle
+            >
+              <i class="fa fa-cog mr-1"></i>
+            </button>
+            <div ngbDropdownMenu>
+              <button abpPermission="BookStore.Books.Edit" (click)="editBook(row.id)" ngbDropdownItem>
+                {{ '::Edit' | abpLocalization }}
+              </button>
+              <button abpPermission="BookStore.Books.Delete" (click)="delete(row.id)" ngbDropdownItem>
+                {{ '::Delete' | abpLocalization }}
+              </button>
+            </div>
+          </div>
+        </ng-template>
+      </ngx-datatable-column>
+    </ngx-datatable>
+  </div>
+</div>
+
+<!-- Create Update Book -->
+
+<abp-modal [(visible)]="isModalOpen">
+
+  <!-- Modal Header -->
+  <ng-template #abpHeader>
+    <h3>
+      {{ (selectedBook.id ? '::Edit' : '::NewBook') | abpLocalization }}
+    </h3>
+  </ng-template>
+
+  <!-- Modal Body -->
+  <ng-template #abpBody>
+    <form (ngSubmit)="save()" [formGroup]="form">
+      <div class="form-group">
+        <label for="book-name">Name</label><span> * </span>
+        <input autofocus class="form-control" formControlName="name" id="book-name" type="text"/>
+      </div>
+
+      <div class="form-group">
+        <label for="book-price">Price</label><span> * </span>
+        <input class="form-control" formControlName="price" id="book-price" type="number"/>
+      </div>
+
+      <div class="form-group">
+        <label for="book-type">Type</label><span> * </span>
+        <select class="form-control" formControlName="type" id="book-type">
+          <option [ngValue]="null">Select a book type</option>
+          <option *ngFor="let type of bookTypes" [ngValue]="bookType[type]"> {{ type }}</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Publish date</label><span> * </span>
+        <input
+          #datepicker="ngbDatepicker"
+          (click)="datepicker.toggle()"
+          class="form-control"
+          formControlName="publishDate"
+          name="datepicker"
+          ngbDatepicker
+        />
+      </div>
+    </form>
+  </ng-template>
+
+  <!-- Modal Footer -->
+  <ng-template #abpFooter>
+    <button #abpClose class="btn btn-secondary" type="button">
+      {{ '::Close' | abpLocalization }}
+    </button>
+    <button (click)="save()" [disabled]="form.invalid" class="btn btn-primary">
+      <i class="fa fa-check mr-1"></i>
+      {{ '::Save' | abpLocalization }}
+    </button>
+  </ng-template>
+
+</abp-modal>

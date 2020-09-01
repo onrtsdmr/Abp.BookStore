@@ -1,0 +1,31 @@
+﻿{
+  "culture": "tr",
+  "texts": {
+    "Menu:Home": "Ana sayfa",
+    "Welcome": "Hoşgeldiniz",
+    "LongWelcomeMessage": "Uygulamaya hoşgeldiniz. Bu, ABP framework'ü üzerine bina edilmiş bir başlangıç projesidir. Daha fazla bilgi için abp.io adresini ziyaret edebilirsiniz.",
+    "Menu:BookStore": "Kitap Dükkanı",
+    "Menu:Books": "Kitaplar",
+    "Actions": "Hareketler",
+    "Close": "Kapat",
+    "Delete": "Sil",
+    "Edit": "Düzenle",
+    "PublishDate": "Çıkış Tarihi",
+    "NewBook": "Yeni Kitap",
+    "Name": "İsim",
+    "Type": "Tip",
+    "Price": "Fiyat",
+    "CreationTime": "Oluşturulma Tarihi",
+    "AreYouSure": "Emin misin?",
+    "AreYouSureToDelete": "Kitabı silmek istediğine emin misin?",
+    "Enum:BookType:0": "Tanımsız",
+    "Enum:BookType:1": "Macera",
+    "Enum:BookType:2": "Biyografi",
+    "Enum:BookType:3": "Distopi",
+    "Enum:BookType:4": "Fantastik",
+    "Enum:BookType:5": "Korku",
+    "Enum:BookType:6": "Bilim",
+    "Enum:BookType:7": "Bilim Kurgu",
+    "Enum:BookType:8": "Şiir"
+  }
+}
